@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine</title>
+</head>
+
+<body>
+    <div class="container">
+        <div>
+            <img alt="cute gif" class="image" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGJ2OXloMGxuZ3dodTA2amszOWkwcHpvOHQyNm94bDhoeXl6d3Q5YiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vFKqnCdLPNOKc/giphy.gif"></img>
+            <div class="text">
+              <h1 class="header" id="name">Hello, sexy lady!</h1>
+              <p class="paragraph" id="question">Will you be my Valentine? 🥺🥹 </p>
+            </div>
+            <div class="buttons">
+                <button class="button"  onclick="showMessage('Yes')" id="yesButton">Yes</button>
+                <button class="button" id="noButton" onclick="showMessage('No')">No 😭</button>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        const phrases = [
+            "please?",
+            "really, really sure??",
+            "take a moment to think...",
+            "pretty please with a cherry on top?",
+            "come on, love, for real",
+            "you're being a little goofball",
+            "give it another thought, pretty please?",
+            "ugh, still a no???",
+            "no 😭",
+        ];
+
+        let noCount = 0;
+
+      const buttonNo = document.getElementById('noButton');
+      const yesButton = document.getElementById('yesButton');
+
+
+
+
+        buttonNo.addEventListener('mouseenter', function() {
+          showMessage('No', true)
+      });
+        buttonNo.addEventListener('click', function() {
+            showMessage('No', true)
+        });
+
+      function showMessage(response, flag = false) {
+  if (response === "No") {
+      if(flag) {
+          if(noCount === 9) {
+              changeNoPosition();
+          }
+          return;
+      }
+
+    if(noCount < phrases.length) {
+        noCount++;
+        yesButton.style.fontSize = noCount * 20 + 12 + "px";
+        buttonNo.innerHTML = phrases[noCount - 1];
+    }
+    return;
+  }
+
+  if (response === "Yes") {
+    document.getElementById("name").remove();
+    document.getElementById("noButton").remove();
+
+    const yesMessage = document.getElementById("question");
+    yesMessage.textContent = "Awww, that is so sweet. Have all my kisses  💗😊😘";
+    yesMessage.style.display = "block";
+    yesMessage.style.fontStyle = "normal";
+    document.getElementsByClassName("image")[0].src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYnp6cGZqdTd2N2k2OWRrazV3Nnd4c21uOWZqb3FudHhhYTljamJoNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/C95viypu1o24M/giphy.gif";
+    document.getElementById("yesButton").remove();
+  }
+}
+
+    function changeNoPosition() {
+        const image = document.getElementsByClassName("image")[0];
+        if (image.alt !== 'please') {
+            image.alt = 'please';
+            image.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaWFpMmJxc2tpeTAwb2xuc2wzbXI2NjY2ZmZia2cwcmQ2aW1iOHd2ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/sXv0vaA4331Ti/giphy.gif";
+        }
+        const noButton = document.getElementById("noButton");
+        const maxWidth = window.innerWidth - noButton.offsetWidth;
+        const maxHeight = window.innerHeight - noButton.offsetHeight;
+        noButton.style.position = "absolute";
+        const randomX = Math.max(0, Math.floor(Math.random() * maxWidth));
+        const randomY = Math.max(0, Math.floor(Math.random() * maxHeight));
+
+        noButton.style.left = randomX + "px";
+        noButton.style.top = randomY + "px";
+
+        document.getElementById("question").textContent =
+            "Think again, my little boo <3";
+        document.getElementById("name").style.display = "none";
+    }
+
+    </script>
+</body>
+
+</html>
